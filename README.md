@@ -2,6 +2,9 @@
 
 An enterprise-grade, decoupled full-stack web application that routes diagnostic imaging payloads to deep learning inference pipelines. The platform provides a sleek, clinical-grade user interface for instantaneous diagnostic predictions across multiple medical classification domains.
 
+🌟 [Live Demo: Try the App Here]([your-streamlit-url.app](https://full-stack-ai-diagnostic-data-workflow-huffvqma6gwvy7jnafnesf.streamlit.app/))
+
+**Note:** The backend is hosted on a free Render instance and goes to sleep after 15 minutes of inactivity. Please allow up to 1 minute for the first prediction to process while the server wakes up.
 ---
 
 ## 🏗️ Architectural Overview
