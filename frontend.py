@@ -1,5 +1,4 @@
 import streamlit as st
-from PIL import Image
 import requests
 
 # 1. Page Configuration
@@ -14,12 +13,12 @@ uploaded_file = st.file_uploader("Upload Medical Image", type=["jpg", "png", "jp
 
 # 3. Process the Image
 if uploaded_file is not None:
-    # Safely load and display the image using PIL
-    image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Scan", use_container_width=True)
     
-    # CRITICAL: Reset the file pointer to the beginning before sending to the API
-    uploaded_file.seek(0)
+    # EXTREMELY SAFE METHOD: Extract pure bytes immediately
+    image_bytes = uploaded_file.getvalue()
+    
+    # Display the image using the raw bytes (avoids PIL and file pointer crashes)
+    st.image(image_bytes, caption="Uploaded Scan", use_container_width=True)
     
     if st.button("Run AI Diagnostics", type="primary"):
         with st.spinner("Processing image through neural network..."):
@@ -28,8 +27,8 @@ if uploaded_file is not None:
             endpoint = "brain-tumor" if "Brain" in scan_type else "ovarian-cancer"
             api_url = f"https://full-stack-ai-diagnostic-data-workflow.onrender.com/predict/{endpoint}/"
             
-            # Package the file to send to the backend
-            files = {"file": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
+            # Package the raw bytes to send to the backend
+            files = {"file": (uploaded_file.name, image_bytes, uploaded_file.type)}
             
             try:
                 # Send the POST request to FastAPI
@@ -59,7 +58,7 @@ if uploaded_file is not None:
                     with st.expander("View Raw Backend JSON Data"):
                         st.json(data)
                 else:
-                    st.error("API Error. Please check your backend connection.")
+                    st.error(f"API Error ({response.status_code}). Please check your backend logs.")
                     
             except requests.exceptions.ConnectionError:
                 st.error("🚨 Connection Error: Cannot reach the FastAPI backend. Is it running?")
