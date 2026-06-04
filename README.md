@@ -26,7 +26,7 @@ Medical-AI-API/
 ├── frontend.py                    # Streamlit Interactive UI Client
 ├── requirements.txt               # Unified Application Dependencies
 └── .gitignore                     # Git Tracking Exclusion Manifest
-
+```
 🚀 Technical Features
 
 * Multi-Pipeline Event Routing: Separate dedicated API endpoints decouple individual diagnostic workflows, keeping core logic isolated.
