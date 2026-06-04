@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 import requests
 
 # 1. Page Configuration
@@ -13,7 +14,12 @@ uploaded_file = st.file_uploader("Upload Medical Image", type=["jpg", "png", "jp
 
 # 3. Process the Image
 if uploaded_file is not None:
-    st.image(uploaded_file, caption="Uploaded Scan", use_container_width=True)
+    # Safely load and display the image using PIL
+    image = Image.open(uploaded_file)
+    st.image(image, caption="Uploaded Scan", use_container_width=True)
+    
+    # CRITICAL: Reset the file pointer to the beginning before sending to the API
+    uploaded_file.seek(0)
     
     if st.button("Run AI Diagnostics", type="primary"):
         with st.spinner("Processing image through neural network..."):
@@ -56,4 +62,4 @@ if uploaded_file is not None:
                     st.error("API Error. Please check your backend connection.")
                     
             except requests.exceptions.ConnectionError:
-                st.error("🚨 Connection Error: Cannot reach the FastAPI backend. Is it running on port 8000?")
+                st.error("🚨 Connection Error: Cannot reach the FastAPI backend. Is it running?")
