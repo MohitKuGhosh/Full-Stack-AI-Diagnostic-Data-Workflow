@@ -1,6 +1,6 @@
 fastapi==0.110.0
 uvicorn==0.28.1
 python-multipart==0.0.9
-pillow==10.3.0
+pillow
 streamlit==1.32.2
 requests==2.31.0
