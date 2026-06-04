@@ -1,0 +1,11 @@
+# Ignore AI Model Weights
+Brain_Tumor_Binary.h5
+ovarian_image_model.h5
+
+# Ignore Python Cache
+__pycache__/
+*.pyc
+
+# Ignore Virtual Environments
+venv/
+env/
