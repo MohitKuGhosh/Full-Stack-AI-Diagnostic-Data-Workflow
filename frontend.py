@@ -18,7 +18,7 @@ if uploaded_file is not None:
     image_bytes = uploaded_file.getvalue()
     
     # Display the image using the raw bytes (avoids PIL and file pointer crashes)
-    st.image(image_bytes, caption="Uploaded Scan", use_container_width=True)
+    st.image(image_bytes, caption="Uploaded Scan", use_column_width=True)
     
     if st.button("Run AI Diagnostics", type="primary"):
         with st.spinner("Processing image through neural network..."):
