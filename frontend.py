@@ -20,7 +20,7 @@ if uploaded_file is not None:
             
             # Determine which FastAPI endpoint to hit
             endpoint = "brain-tumor" if "Brain" in scan_type else "ovarian-cancer"
-            api_url = f"http://127.0.0.1:8000/predict/{endpoint}/"
+            api_url = f"https://full-stack-ai-diagnostic-data-workflow.onrender.com/predict/{endpoint}/"
             
             # Package the file to send to the backend
             files = {"file": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
